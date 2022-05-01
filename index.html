@@ -5,6 +5,9 @@
 	<link rel="stylesheet" href="https://cdn.underdevelopment.work/bulma/css/bulma.min.css">
 	<link rel="stylesheet" href="https://cdn.underdevelopment.work/dropzonejs/min/dropzone.min.css">
 	<link rel="stylesheet" href="https://cdn.underdevelopment.work/loader/loader.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
 </head>
 <body>
 	<nav class="navbar" role="navigation" aria-label="main navigation">
@@ -27,65 +30,82 @@
 		</div>
 	  </div>
 	</nav>
-
+	<div id="gmedia"></div>
 	<script type="text/javascript" src="https://cdn.underdevelopment.work/generaljs/general.min.js"></script>
 	<script type="text/javascript" src="./gcomposer.js"></script>
-		<script type="text/javascript">
-			genrl.run(function(){
-				//write code below
-				composerbar.config({
-					'height':'50px',
-					'width':'100%',
-					'parent':'gmedia'
-				});
-				let barra1=composerbar.appendbar("top");
-				composerbar.appendtext({
-					'texto':"INICIO",
-					'idbarra':barra1.id,
-					'action':function(){
-						console.log("HOLA");
-					}
-				})
-				gcomposer.config({
-					element:".modal",
-					draggable:".modal",
-					parent:"gmedia"
-				});
-				composerbar.appendicon({
-					'idicon':"config",
-					'icon':"sistemapmod/devtools/dev/gcomposer/file.png",
-					'caption':"",
-					'idbarra':barra1.id,
-					'action':function(){
-						gcomposer.modal({
-							height:"500px",
-							width:"500px",
-							title:"Abrir un Archivo",
-							template:"sistemapmod/devtools/dev/general.js/README.md",
-							action:function(data){
-								console.log("se ha creado la ventana");
-							}
-						})
-					}
-				})
-				composerbar.appendicon({
-					'idicon':"config",
-					'icon':"sistemapmod/devtools/dev/gcomposer/folder.png",
-					'caption':"",
-					'idbarra':barra1.id,
-					'action':function(){
-						gcomposer.modal({
-							height:"500px",
-							width:"500px",
-							title:"Crear una Carpeta",
-							template:"sistemapmod/devtools/dev/general.js/README.md",
-							action:function(data){
-								console.log("se ha creado la ventana");
-							}
-						})
-					}
-				})
+	<script type="text/javascript" src="./barcomposer.js"></script>
+	<script type="text/javascript">
+		genrl.run(function(){
+			//write code below
+			composerbar.config({
+				'height':'50px',
+				'width':'100%',
+				'parent':'gmedia'
 			});
-		</script>
+			let barra1=composerbar.appendbar("top");
+			composerbar.appendtext({
+				'texto':"INICIO",
+				'idbarra':barra1.id,
+				'action':function(){
+					genrl.log("HOLA");
+				}
+			})
+			gcomposer.config({
+				element:".modal",
+				draggable:".modal",
+				parent:"gmedia"
+			});
+			composerbar.appendicon({
+				'idicon':"config",
+				'icon':"description",
+				'caption':"Archivo",
+				'idbarra':barra1.id,
+				'action':function(){
+					gcomposer.modal({
+						height:"500px",
+						width:"500px",
+						title:"Crear un Archivo",
+						template:"./README.md",
+						action:function(data){
+							genrl.log("se ha creado la ventana");
+						}
+					})
+				}
+			})
+			composerbar.appendicon({
+				'idicon':"config",
+				'icon':"folder",
+				'caption':"Carpeta",
+				'idbarra':barra1.id,
+				'action':function(){
+					gcomposer.modal({
+						height:"500px",
+						width:"500px",
+						title:"Crear una Carpeta",
+						template:"./README.md",
+						action:function(data){
+							genrl.log("se ha creado la ventana");
+						}
+					})
+				}
+			})
+
+			composerbar.appendtext({
+				'texto':"Esto es un texto de prueba",
+				'idbarra':barra1.id,
+				'action':function(){
+					gcomposer.modal({
+						height:"500px",
+						width:"500px",
+						title:"Crear una Carpeta",
+						template:"./README.md",
+						action:function(data){
+							genrl.log("se ha creado la ventana");
+						}
+					})
+				}
+			})
+		});
+	</script>
 </body>
 </html>

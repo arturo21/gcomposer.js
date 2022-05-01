@@ -31,6 +31,7 @@ let composerbar=(function(global,factory){
 					let result=randomn1 * randomn2;
 					barra.id="barratop" + result;
 					barra.name="barratop" + result;
+					g("#" + settings.parent).append(barra);
 					if(settings.color!=undefined){
 						if(settings.color!=''){
 							color=settings.color;
@@ -43,12 +44,29 @@ let composerbar=(function(global,factory){
 						color="#4e4e4e";
 					}
 					if(position=='top'){
-						barra.style="min-height:30px;width:100%;background:" + color + ";position:absolute;float:none;display:block;top:0px;left:0px;color:white;padding-bottom:8px;";
+						g("#" + barra.id).css({
+							"position":"relative",
+							"float":"none",
+							"display":"block",
+							"min-height":"60px",
+							"width":"100%",
+							"padding":"0px",
+							"background":color,
+							"color":"white"
+						});
 					}
 					else{
-						barra.style="min-height:30px;width:100%;background:" + color + ";position:absolute;float:none;display:block;bottom:0px;left:0px;color:white;padding-bottom:8px;";
+						g("#" + barra.id).css({
+							"position":"relative",
+							"float":"none",
+							"display":"block",
+							"min-height":"60px",
+							"width":"100%",
+							"padding":"0px",
+							"background":color,
+							"color":"white"
+						});
 					}
-					g("#" + settings.parent).append(barra);
 					let defaults={
 						height:settings.height,
 						width:settings.width,
@@ -65,7 +83,6 @@ let composerbar=(function(global,factory){
 			else{
 				console.log("Defina el atributo position!");
 			}
-			return this;
 		},
 		appendtext:function(defaults){
 			if(defaults.texto==undefined){
@@ -82,8 +99,6 @@ let composerbar=(function(global,factory){
 
 			textcontent.id="texto_" + result;
 			textcontent.name="texto_" + result;
-			textcontent.style="position:relative;float:left;display:inline-block;height:30px;width:auto;padding-left:5px;padding-top:5px;margin-right:5px;";
-
 			let randomn1_span=Math.floor((Math.random() * 100) + 31);
 			let randomn2_span=Math.floor((Math.random() * 100) + 33);
 			result=randomn1_span * randomn2_span;
@@ -93,6 +108,16 @@ let composerbar=(function(global,factory){
 			spantext.style="position:relative;float:left;display:inline-block;height:30px;width:auto;margin-left:1px;";
 			spantext.innerHTML=defaults.texto;
 			textcontent.append(spantext);
+			g("#" + textcontent.id).css({
+				"position":"relative",
+				"float":"left",
+				"display":"inline-block",
+				"height":"30px",
+				"width":"auto",
+				"padding-left":"5px",
+				"padding-top":"5px",
+				"margin-right":"5px"
+			})
 			g("#" + defaults.idbarra).append(textcontent);
 			if(defaults.action==undefined){
 				genrl.log("Defina argumento action");
@@ -132,7 +157,7 @@ let composerbar=(function(global,factory){
 					//attach event onclick function
 					let iconcontent=genrl.getCreate("div");
 					let spanicon=genrl.getCreate("span");
-					let imgicon=genrl.getCreate("img");
+					let imgicon=genrl.getCreate("div");
 
 					let randomn1_div=Math.floor((Math.random() * 100) + 2);
 					let randomn2_div=Math.floor((Math.random() * 100) + 4);
@@ -147,7 +172,8 @@ let composerbar=(function(global,factory){
 					imgicon.id="imgcont_" +result;
 					imgicon.name="imgcont_" +result;
 					imgicon.style="position:relative;float:left;display:inline-block;height:auto;width:auto;margin-left:15px;";
-					imgicon.src=defaults.icon;
+					imgicon.innerHTML=defaults.icon;
+					imgicon.classList.add("material-icons");
 
 					let randomn1_span=Math.floor((Math.random() * 100) + 31);
 					let randomn2_span=Math.floor((Math.random() * 100) + 33);
@@ -155,7 +181,7 @@ let composerbar=(function(global,factory){
 
 					spanicon.id="spancont_" +result;
 					spanicon.name="spancont_" +result;
-					spanicon.style="position:relative;float:left;display:inline-block;height:auto;width:30px;margin-left:15px;";
+					spanicon.style="position:relative;float:left;display:inline-block;height:auto;width:30px;margin-left:0px;margin-top: 35px;";
 					spanicon.innerHTML=defaults.caption;
 					iconcontent.append(imgicon);
 					iconcontent.append(spanicon);
