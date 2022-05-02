@@ -14,14 +14,16 @@ let gcomposer=(function(global,factory){
 		e = e || window.event;
 		e.preventDefault();
 		let elmnt=g(settings.draggable).getEl();
-		// calculate the new cursor position:
-		pos1 = pos3 - e.clientX;
-		pos2 = pos4 - e.clientY;
-		pos3 = e.clientX;
-		pos4 = e.clientY;
-		// set the element's new position:
-		elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-		elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+		if(elmnt!=null){
+			// calculate the new cursor position:
+			pos1 = pos3 - e.clientX;
+			pos2 = pos4 - e.clientY;
+			pos3 = e.clientX;
+			pos4 = e.clientY;
+			// set the element's new position:
+			elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+			elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+		}
 	};
 	function closeDragElement() {
 		/* stop moving when mouse button is released:*/
@@ -159,7 +161,7 @@ let gcomposer=(function(global,factory){
 			return this;
 		},
 		resize:function(id){
-
+			//Cambiar css de la ventana - calcular dimensiones de la pantalla del navegador
 			return this;
 		}
 	}

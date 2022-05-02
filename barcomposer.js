@@ -49,19 +49,24 @@ let composerbar=(function(global,factory){
 							"float":"none",
 							"display":"block",
 							"min-height":"60px",
+							"margin-top":"0px",
+							"margin-left":"0px",
 							"width":"100%",
 							"padding":"0px",
 							"background":color,
 							"color":"white"
 						});
 					}
-					else{
+					
+					if(position=='top'){
 						g("#" + barra.id).css({
 							"position":"relative",
 							"float":"none",
 							"display":"block",
 							"min-height":"60px",
 							"width":"100%",
+							"margin-bottom":"0px",
+							"margin-left":"0px",
 							"padding":"0px",
 							"background":color,
 							"color":"white"

@@ -31,22 +31,24 @@
 	  </div>
 	</nav>
 	<div id="gmedia"></div>
+	<div id="draggablezone"></div>
 	<script type="text/javascript" src="https://cdn.underdevelopment.work/generaljs/general.min.js"></script>
 	<script type="text/javascript" src="./gcomposer.js"></script>
 	<script type="text/javascript" src="./barcomposer.js"></script>
+	<script type="text/javascript" src="./gfile.js"></script>
 	<script type="text/javascript">
 		genrl.run(function(){
 			//write code below
 			composerbar.config({
-				'height':'50px',
-				'width':'100%',
-				'parent':'gmedia'
+				height:'50px',
+				width:'100%',
+				parent:'gmedia'
 			});
 			let barra1=composerbar.appendbar("top");
 			composerbar.appendtext({
-				'texto':"INICIO",
-				'idbarra':barra1.id,
-				'action':function(){
+				texto:"INICIO",
+				idbarra:barra1.id,
+				action:function(){
 					genrl.log("HOLA");
 				}
 			})
@@ -56,15 +58,16 @@
 				parent:"gmedia"
 			});
 			composerbar.appendicon({
-				'idicon':"config",
-				'icon':"description",
-				'caption':"Archivo",
-				'idbarra':barra1.id,
-				'action':function(){
+				idicon:"config",
+				icon:"description",
+				caption:"Archivo",
+				idbarra:barra1.id,
+				action:function(){
 					gcomposer.modal({
 						height:"500px",
 						width:"500px",
 						title:"Crear un Archivo",
+						draggagle:".modal",
 						template:"./README.md",
 						action:function(data){
 							genrl.log("se ha creado la ventana");
@@ -73,15 +76,16 @@
 				}
 			})
 			composerbar.appendicon({
-				'idicon':"config",
-				'icon':"folder",
-				'caption':"Carpeta",
-				'idbarra':barra1.id,
-				'action':function(){
+				idicon:"config",
+				icon:"folder",
+				caption:"Carpeta",
+				idbarra:barra1.id,
+				action:function(){
 					gcomposer.modal({
 						height:"500px",
 						width:"500px",
 						title:"Crear una Carpeta",
+						draggagle:".modal",
 						template:"./README.md",
 						action:function(data){
 							genrl.log("se ha creado la ventana");
@@ -91,18 +95,26 @@
 			})
 
 			composerbar.appendtext({
-				'texto':"Esto es un texto de prueba",
-				'idbarra':barra1.id,
-				'action':function(){
+				texto:"Esto es un texto de prueba",
+				idbarra:barra1.id,
+				action:function(){
 					gcomposer.modal({
 						height:"500px",
 						width:"500px",
 						title:"Crear una Carpeta",
 						template:"./README.md",
+						draggagle:".modal",
 						action:function(data){
 							genrl.log("se ha creado la ventana");
 						}
 					})
+				}
+			})
+
+			let dzone=gfile.makeDraggableZone({
+				parent:"#draggablezone",
+				callback:function(){
+					genrl.log("se ha creado la zonadraggable");
 				}
 			})
 		});
