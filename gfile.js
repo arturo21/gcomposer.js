@@ -29,51 +29,73 @@ let gfile=(function(){
 		makeDraggableZone:function(settings){
 			let callback;
 			let fondant;
-			let zoneid_div=genrl.now();;
-			let divdraggable=genrl.getCreate("form");
-			let divdraggable_aviso=genrl.getCreate("span");
+			let zoneid_div=genrl.now();
+			let divdraggable;
+			let divdraggable_aviso;
 			if(settings.parent==undefined){
 				genrl.error("Debe establecer el di padre!");
 			}
 			else{
-				divdraggable.id= "draggable-zone-" + zoneid_div;
-				divdraggable.name= "draggable-zone-" + zoneid_div;
-				divdraggable.enctype= "multipart/form-data";
-				divdraggable_aviso.id= "draggable-zone-aviso-" + zoneid_div;
-				divdraggable_aviso.name= "draggable-zone-aviso-" + zoneid_div;
+				//Crear un input Form con estilo
+				genrl.create("form",function(elem){
+					elem.id= "draggable-zone-" + zoneid_div;
+					elem.name= "draggable-zone-" + zoneid_div;
+					elem.enctype= "multipart/form-data";
+					divdraggable=elem;
+				});
+
+				genrl.create("span",function(elem){
+					elem.id= "draggable-zone-aviso-" + zoneid_div;
+					elem.name= "draggable-zone-aviso-" + zoneid_div;
+					divdraggable_aviso=elem;
+				});
 
 				//Crear un input File con estilo
-				let inputfile=genrl.getCreate("input");
-				inputfile.id= "draggable-input-file-" + zoneid_div;
-				inputfile.name= "resume";
-				inputfile.type= "file";
+				genrl.create("input",function(elem){
+					elem.id= "draggable-input-file-" + zoneid_div;
+					elem.name= "resume";
+					elem.type= "file";
+					inputfile=elem;
+				});
 
-				let divpadrefile=genrl.getCreate("div");
-				divpadrefile.id= "draggable-divpadre-file-" + zoneid_div;
-				divpadrefile.name= "draggable-divpadre-file-" + zoneid_div;
+				genrl.create("div",function(elem){
+					elem.id= "draggable-divpadre-file-" + zoneid_div;
+					elem.name= "draggable-divpadre-file-" + zoneid_div;
+					divpadrefile=elem;
+				});
 
-				let labelhijofile=genrl.getCreate("label");
-				labelhijofile.id= "draggable-label-file-" + zoneid_div;
-				labelhijofile.name= "draggable-label-file-" + zoneid_div;
+				genrl.create("label",function(elem){
+					elem.id= "draggable-label-file-" + zoneid_div;
+					elem.name= "draggable-label-file-" + zoneid_div;
+					labelhijofile=elem;
+				});
 
-				let filectafile=genrl.getCreate("span");
-				filectafile.id= "draggable-span-file-" + zoneid_div;
-				filectafile.name= "draggable-span-file-" + zoneid_div;
+				genrl.create("span",function(elem){
+					elem.id= "draggable-span-file-" + zoneid_div;
+					elem.name= "draggable-span-file-" + zoneid_div;
+					filectafile=elem;
+				});
 
-				let inputfileicon=genrl.getCreate("span");
-				inputfileicon.id= "draggable-input-fileicon-" + zoneid_div;
-				inputfileicon.name= "draggable-input-fileicon-" + zoneid_div;
+				genrl.create("span",function(elem){
+					elem.id= "draggable-input-fileicon-" + zoneid_div;
+					elem.name= "draggable-input-fileicon-" + zoneid_div;
+					inputfileicon=elem;
+				});
 
-				let inputfileicongoo=genrl.getCreate("i");
-				inputfileicongoo.id= "draggable-spanfi-file-" + zoneid_div;
-				inputfileicongoo.name= "draggable-spanfi-file-" + zoneid_div;
+				genrl.create("i",function(elem){
+					elem.id= "draggable-spanfi-file-" + zoneid_div;
+					elem.name= "draggable-spanfi-file-" + zoneid_div;
+					inputfileicongoo=elem;
+				});
 
-				let inputfilelegend=genrl.getCreate("span");
-				inputfilelegend.id= "draggable-spanlegend-file-" + zoneid_div;
-				inputfilelegend.name= "draggable-spanlegend-file-" + zoneid_div;
-				inputfilelegend.innerHTML="Elije un archivo...";
+				genrl.create("span",function(elem){
+					elem.id= "draggable-spanlegend-file-" + zoneid_div;
+					elem.name= "draggable-spanlegend-file-" + zoneid_div;
+					elem.innerHTML="Elije un archivo...";
+					inputfilelegend=elem;
+				});
 
-				inputfileicon.append(inputfileicongoo);
+				inputfileicon.append(inputfileicongoo); 
 				filectafile.append(inputfileicon);
 				filectafile.append(inputfilelegend);
 				labelhijofile.append(filectafile);
@@ -86,12 +108,15 @@ let gfile=(function(){
 				g("#" + inputfile.id).addClass("file-input");
 				g("#" + divdraggable.id).addClass("draggablezone");
 				g("#" + filectafile.id).addClass("file-cta");
+				g("#" + inputfile.id).css({
+					'cursor':'pointer'
+				});
 				g("#" + divpadrefile.id).css({
 					'position':'relative',
 					'float':'none',
 					'width':'192px',
+					'margin':'0 auto',
 					'cursor':'pointer',
-					'margin':'0 auto'
 				});
 				g("#" + inputfileicon.id).addClass("file-icon");
 				g("#" + inputfileicongoo.id).addClass("material-icons");
