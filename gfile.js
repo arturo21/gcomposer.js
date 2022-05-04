@@ -9,7 +9,7 @@ let gfile=(function(){
 			if(folder!=''){
 				rootfolder=folder;
 			}
-		else{
+			else{
 				genrl.error("Falta definir root folder");
 			}
 		},
@@ -31,7 +31,6 @@ let gfile=(function(){
 			let fondant;
 			let zoneid_div=genrl.now();;
 			let divdraggable=genrl.getCreate("form");
-			let inputfile=genrl.getCreate("input");
 			let divdraggable_aviso=genrl.getCreate("span");
 			if(settings.parent==undefined){
 				genrl.error("Debe establecer el di padre!");
@@ -42,13 +41,62 @@ let gfile=(function(){
 				divdraggable.enctype= "multipart/form-data";
 				divdraggable_aviso.id= "draggable-zone-aviso-" + zoneid_div;
 				divdraggable_aviso.name= "draggable-zone-aviso-" + zoneid_div;
+
+				//Crear un input File con estilo
+				let inputfile=genrl.getCreate("input");
 				inputfile.id= "draggable-input-file-" + zoneid_div;
-				inputfile.name= "draggable-input-file-" + zoneid_div;
+				inputfile.name= "resume";
 				inputfile.type= "file";
+
+				let divpadrefile=genrl.getCreate("div");
+				divpadrefile.id= "draggable-divpadre-file-" + zoneid_div;
+				divpadrefile.name= "draggable-divpadre-file-" + zoneid_div;
+
+				let labelhijofile=genrl.getCreate("label");
+				labelhijofile.id= "draggable-label-file-" + zoneid_div;
+				labelhijofile.name= "draggable-label-file-" + zoneid_div;
+
+				let filectafile=genrl.getCreate("span");
+				filectafile.id= "draggable-span-file-" + zoneid_div;
+				filectafile.name= "draggable-span-file-" + zoneid_div;
+
+				let inputfileicon=genrl.getCreate("span");
+				inputfileicon.id= "draggable-input-fileicon-" + zoneid_div;
+				inputfileicon.name= "draggable-input-fileicon-" + zoneid_div;
+
+				let inputfileicongoo=genrl.getCreate("i");
+				inputfileicongoo.id= "draggable-spanfi-file-" + zoneid_div;
+				inputfileicongoo.name= "draggable-spanfi-file-" + zoneid_div;
+
+				let inputfilelegend=genrl.getCreate("span");
+				inputfilelegend.id= "draggable-spanlegend-file-" + zoneid_div;
+				inputfilelegend.name= "draggable-spanlegend-file-" + zoneid_div;
+				inputfilelegend.innerHTML="Elije un archivo...";
+
+				inputfileicon.append(inputfileicongoo);
+				filectafile.append(inputfileicon);
+				filectafile.append(inputfilelegend);
+				labelhijofile.append(filectafile);
+				labelhijofile.append(inputfile);
+				divpadrefile.append(labelhijofile);
+				divdraggable.append(divpadrefile);
 				divdraggable.append(divdraggable_aviso);
-				divdraggable.append(inputfile);
 				g(settings.parent).append(divdraggable);
+
+				g("#" + inputfile.id).addClass("file-input");
 				g("#" + divdraggable.id).addClass("draggablezone");
+				g("#" + filectafile.id).addClass("file-cta");
+				g("#" + divpadrefile.id).css({
+					'position':'relative',
+					'float':'none',
+					'width':'192px',
+					'cursor':'pointer',
+					'margin':'0 auto'
+				});
+				g("#" + inputfileicon.id).addClass("file-icon");
+				g("#" + inputfileicongoo.id).addClass("material-icons");
+				g("#" + inputfilelegend.id).addClass("file-label");
+				g("#" + inputfileicongoo.id).text("description");
 				g("#" + divdraggable_aviso.id).css({
 					'position':'relative',
 					'float':'none',
