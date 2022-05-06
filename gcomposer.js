@@ -49,7 +49,7 @@ let gcomposer=(function(global,factory){
 			return this;
 		},
 		modal:function(defaults){
-			let ancho,alto,plantilla,accion,titulo;
+			let ancho,alto,plantilla,accion,titulo,posy,posx;
 			let wincontent=genrl.getCreate("section");
 			let modalcard=genrl.getCreate("div");
 			let modalcardhead=genrl.getCreate("div");
@@ -121,6 +121,11 @@ let gcomposer=(function(global,factory){
 			modalcard.append(modalcardfoot);
 			wincontent.append(modalcard)
 			g("#" + settings.parent).append(wincontent);
+			g("#" + wincontent.id).css({
+				'top':"12%",
+				'left':"33%",
+			});
+
 			if(plantilla!=undefined){
 				if(plantilla!=""){
 					let ajaxapi=genrl.ajaxapi;

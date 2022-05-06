@@ -3,6 +3,8 @@ let gfile=(function(){
 	let filetypes=[{}];
 	let dirs=[{}];	
 	let rootfolder="";
+	let tabpadre;
+	let divpadrelist;
 	return{
 		setRootFolder:function(folder){
 			//set root folder to know where to look at
@@ -14,13 +16,130 @@ let gfile=(function(){
 			}
 		},
 		makeFilesTree:function(){
+			let strdata;
 			let ajx=genrl.ajaxapi;
 			ajx
-			.post(savesession,strdata)
+			.post("/api/files/v1/makeFilesTree",strdata)
 			.then(function(data){
 				if(data=="VALID_SESSION"){
 					genrl.lhref(callbacklogin);
 				}
+			})
+			.catch(function(e){	
+				SC.log("ERROR:" + e);
+			});
+		},
+		//archivos
+		appendFile:function(){
+			let cantarchivos;
+			let ajx=genrl.ajaxapi;
+			//argumento 0 el id de la tabla parent
+			//del 1 en adelante los archivos
+			cantarchivos=arguments.length;
+			//usar librería DND
+		},
+		makeFilesPanel:function(settings){
+			let zoneid_div=genrl.now();
+			let ajx=genrl.ajaxapi;
+			let primertbody;
+			let primerthead;
+			let primertr;
+
+			let nombreth;
+			let tamanoth;
+			let fechath;
+
+			let strdata;
+			genrl.create("table",function(elem){
+				elem.id= "draggable-tabpadre-file-" + zoneid_div;
+				elem.name= "draggable-tabpadre-file-" + zoneid_div;
+				tabpadre=elem;
+			});
+			genrl.create("thead",function(elem){
+				let zoneid_div=genrl.now();
+				elem.id= "draggable-theadpadre-file-" + zoneid_div;
+				elem.name= "draggable-theadpadre-file-" + zoneid_div;
+				primerthead=elem;
+			});
+			genrl.create("tbody",function(elem){
+				let zoneid_div=genrl.now();
+				elem.id= "draggable-tbodypadre-file-" + zoneid_div;
+				elem.name= "draggable-tbodypadre-file-" + zoneid_div;
+				primertbody=elem;
+			});
+			genrl.create("th",function(elem){
+				let zoneid_div=genrl.now();
+				elem.id= "draggable-thnombrepadre-file-" + zoneid_div;
+				elem.name= "draggable-thnombrepadre-file-" + zoneid_div;
+				nombreth=elem;
+			});
+			genrl.create("th",function(elem){
+				let zoneid_div=genrl.now();
+				elem.id= "draggable-thtamanopadre-file-" + zoneid_div;
+				elem.name= "draggable-thtamanopadre-file-" + zoneid_div;
+				tamanoth=elem;
+			});
+			genrl.create("th",function(elem){
+				let zoneid_div=genrl.now();
+				elem.id= "draggable-thfechapadre-file-" + zoneid_div;
+				elem.name= "draggable-thfechapadre-file-" + zoneid_div;
+				fechath=elem;
+			});
+			genrl.create("tr",function(elem){
+				let zoneid_div=genrl.now();
+				elem.id= "draggable-trheadpadre-file-" + zoneid_div;
+				elem.name= "draggable-trheadpadre-file-" + zoneid_div;
+				primertr=elem;
+			});
+			genrl.create("div",function(elem){
+				elem.id= "draggable-divpadre-file-" + zoneid_div;
+				elem.name= "draggable-divpadre-file-" + zoneid_div;
+				divpadrelist=elem;
+			});
+			primertr.append(nombreth);
+			primertr.append(tamanoth);
+			primertr.append(fechath);
+			primerthead.append(primertr);
+			tabpadre.append(primerthead);
+			tabpadre.append(primertbody);
+			divpadrelist.append(tabpadre);
+			g(settings.parent).append(divpadrelist);
+			g("#" + divpadrelist.id).addClass("table");
+
+			g("#" + nombreth.id).text("Nombre");
+			g("#" + tamanoth.id).text("Tamaño");
+			g("#" + fechath.id).text("Fecha");
+			g("#" + tabpadre.id).css({
+				'width':'100%'
+			});
+			g("#" + divpadrelist.id).css({
+				'position':'relative',
+				'float':'none',
+				'display':'block',
+				'width':'100%',
+				'min-height':'50px',
+				'padding':'0',
+				'margin':'0',
+				'background':'#e6e6e6',
+				'padding-top':'50px',
+				'padding-bottom':'50px',
+				'cursor':'pointer',
+			});
+			g("#" + divpadrelist.id).on('mouseover',function(){
+				g("#" + divpadrelist.id).css({
+					'background':'#efefef',
+				});
+			});
+			g("#" + divpadrelist.id).on('mouseleave',function(){
+				g("#" + divpadrelist.id).css({
+					'background':'#e6e6e6',
+				});
+			});
+			ajx
+			.post("/api/files/v1/makeFilesTree",strdata)
+			.then(function(data){
+				let filesarr=data;
+
 			})
 			.catch(function(e){	
 				SC.log("ERROR:" + e);
@@ -148,7 +267,6 @@ let gfile=(function(){
 					'cursor':'pointer',
 				});
 				g("#" + divdraggable.id).on('mouseover',function(){
-					fondoant=g("#" + divdraggable.id).css("background");
 					g("#" + divdraggable.id).css({
 						'background':'#efefef'
 					});
@@ -158,7 +276,7 @@ let gfile=(function(){
 				});
 				g("#" + divdraggable.id).on('mouseleave',function(){
 					g("#" + divdraggable.id).css({
-						'background':fondoant.background
+						'background':"#e6e6e6"
 					});
 					g("#" + divdraggable_aviso.id).css({
 						'color':'#4e4e4e'

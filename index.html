@@ -32,6 +32,7 @@
 	</nav>
 	<div id="gmedia"></div>
 	<div id="draggablezone"></div>
+	<div id="listzone"></div>
 	<script type="text/javascript" src="https://cdn.underdevelopment.work/generaljs/general.min.js"></script>
 	<script type="text/javascript" src="./gcomposer.js"></script>
 	<script type="text/javascript" src="./barcomposer.js"></script>
@@ -46,10 +47,10 @@
 			});
 			let barra1=composerbar.appendbar("top");
 			composerbar.appendtext({
-				texto:"INICIO",
+				texto:"GMedia",
 				idbarra:barra1.id,
 				action:function(){
-					genrl.log("HOLA");
+					genrl.log("Creación Finalizada");
 				}
 			})
 			gcomposer.config({
@@ -60,7 +61,7 @@
 			composerbar.appendicon({
 				idicon:"config",
 				icon:"description",
-				caption:"Archivo",
+				caption:"Crear Archivo",
 				idbarra:barra1.id,
 				action:function(){
 					gcomposer.modal({
@@ -78,7 +79,7 @@
 			composerbar.appendicon({
 				idicon:"config",
 				icon:"folder",
-				caption:"Carpeta",
+				caption:"Crear Carpeta",
 				idbarra:barra1.id,
 				action:function(){
 					gcomposer.modal({
@@ -92,31 +93,39 @@
 						}
 					})
 				}
-			})
-
-			composerbar.appendtext({
-				texto:"Esto es un texto de prueba",
+			});
+			composerbar.appendicon({
+				idicon:"config",
+				icon:"file_upload",
+				caption:"Subir Archivo",
 				idbarra:barra1.id,
 				action:function(){
 					gcomposer.modal({
 						height:"500px",
 						width:"500px",
-						title:"Crear una Carpeta",
-						template:"./README.md",
+						title:"Subir Archivo",
 						draggagle:".modal",
+						template:"./README.md",
 						action:function(data){
 							genrl.log("se ha creado la ventana");
 						}
 					})
 				}
-			})
+			});
 
 			let dzone=gfile.makeDraggableZone({
 				parent:"#draggablezone",
 				callback:function(){
 					genrl.log("se ha creado la zonadraggable");
 				}
-			})
+			});
+
+			let fpanel=gfile.makeFilesPanel({
+				parent:"#listzone",
+				callback:function(){
+					genrl.log("se ha creado la zonadraggable");
+				}
+			});
 		});
 	</script>
 </body>

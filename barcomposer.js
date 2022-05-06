@@ -25,10 +25,8 @@ let composerbar=(function(global,factory){
 				//top or bottom
 				if(position=='bottom' || position=='top'){
 					//dibujar barra
-					let randomn1=Math.floor((Math.random() * 100) + 1);
 					let barra=genrl.getCreate("div");
-					let randomn2=Math.floor((Math.random() * 100) + 15);
-					let result=randomn1 * randomn2;
+					let result=genrl.now();
 					barra.id="barratop" + result;
 					barra.name="barratop" + result;
 					g("#" + settings.parent).append(barra);
@@ -43,35 +41,7 @@ let composerbar=(function(global,factory){
 					else{
 						color="#4e4e4e";
 					}
-					if(position=='top'){
-						g("#" + barra.id).css({
-							"position":"relative",
-							"float":"none",
-							"display":"block",
-							"min-height":"60px",
-							"margin-top":"0px",
-							"margin-left":"0px",
-							"width":"100%",
-							"padding":"0px",
-							"background":color,
-							"color":"white"
-						});
-					}
-					
-					if(position=='top'){
-						g("#" + barra.id).css({
-							"position":"relative",
-							"float":"none",
-							"display":"block",
-							"min-height":"60px",
-							"width":"100%",
-							"margin-bottom":"0px",
-							"margin-left":"0px",
-							"padding":"0px",
-							"background":color,
-							"color":"white"
-						});
-					}
+					g("#" + barra.id).addClass("navbar");
 					let defaults={
 						height:settings.height,
 						width:settings.width,
@@ -98,47 +68,37 @@ let composerbar=(function(global,factory){
 			}
 			let textcontent=genrl.getCreate("div");
 			let spantext=genrl.getCreate("span");
-			let randomn1_div=Math.floor((Math.random() * 100) + 16);
-			let randomn2_div=Math.floor((Math.random() * 100) + 18);
-			result=randomn1_div * randomn2_div;
+			result=genrl.now();
 
 			textcontent.id="texto_" + result;
 			textcontent.name="texto_" + result;
-			let randomn1_span=Math.floor((Math.random() * 100) + 31);
-			let randomn2_span=Math.floor((Math.random() * 100) + 33);
-			result=randomn1_span * randomn2_span;
+			result=genrl.now();
 
 			spantext.id="texto_span_" + result;
 			spantext.name="texto_span_" + result;
-			spantext.style="position:relative;float:left;display:inline-block;height:30px;width:auto;margin-left:1px;";
-			spantext.innerHTML=defaults.texto;
+			if(defaults.texto!=''){
+				spantext.innerHTML=defaults.texto;
+			}
 			textcontent.append(spantext);
-			g("#" + textcontent.id).css({
-				"position":"relative",
-				"float":"left",
-				"display":"inline-block",
-				"height":"30px",
-				"width":"auto",
-				"padding-left":"5px",
-				"padding-top":"5px",
-				"margin-right":"5px"
-			})
 			g("#" + defaults.idbarra).append(textcontent);
+			g("#" + textcontent.id).addClass("mx-4");
 			if(defaults.action==undefined){
 				genrl.log("Defina argumento action");
 			}
 			else{
 				if(typeof defaults.action==='function'){
 					g("#" + textcontent.id).click(defaults.action);
-					g("#" + textcontent.id).css({
-						'cursor':'pointer',
-						'margin-top':'1.7%',
-					});
 				}
 			}
 			return this;
 		},
 		appendicon:function(defaults){
+			let iconcontent;
+			let imgicon;
+			let spanicon;
+			let itagicon;
+			let result;
+
 			if(defaults.idicon==undefined){
 				genrl.log("Defina el argumento idicon")
 			}
@@ -160,38 +120,44 @@ let composerbar=(function(global,factory){
 				if(typeof defaults.action==='function'){
 					//Creates an element and attach it to parent
 					//attach event onclick function
-					let iconcontent=genrl.getCreate("div");
-					let spanicon=genrl.getCreate("span");
-					let imgicon=genrl.getCreate("div");
+					genrl.create("span",function(elem){
+						result=genrl.now();
+						elem.id="iconcont_" + result;
+						elem.name="iconcont_" + result;
+						iconcontent=elem;
+					});
+					genrl.create("span",function(elem){
+						result=genrl.now();
+						elem.id="spanicon_" + result;
+						elem.name="spanicon_" + result;
+						spanicon=elem;
+					});
+					genrl.create("span",function(elem){
+						result=genrl.now();
+						elem.id="spantext_" + result;
+						elem.name="spantext_" + result;
+						spantext=elem;
+					});
+					genrl.create("i",function(elem){
+						result=genrl.now();
+						elem.id="iconi_" + result;
+						elem.name="iconi_" + result;
+						itagicon=elem;
+					});
 
-					let randomn1_div=Math.floor((Math.random() * 100) + 2);
-					let randomn2_div=Math.floor((Math.random() * 100) + 4);
-					let result=randomn1_div * randomn2_div;
-					iconcontent.id="iconcont_" + result;
-					iconcontent.name="iconcont_" + result;
-					iconcontent.style="position:relative;float:left;display:inline-block;height:auto;width:auto;margin-left:15px;";
-
-					let randomn1_img=Math.floor((Math.random() * 100) + 16);
-					let randomn2_img=Math.floor((Math.random() * 100) + 18);
-					result=randomn1_img * randomn2_img;
-					imgicon.id="imgcont_" +result;
-					imgicon.name="imgcont_" +result;
-					imgicon.style="position:relative;float:left;display:inline-block;height:auto;width:auto;margin-left:15px;";
-					imgicon.innerHTML=defaults.icon;
-					imgicon.classList.add("material-icons");
-
-					let randomn1_span=Math.floor((Math.random() * 100) + 31);
-					let randomn2_span=Math.floor((Math.random() * 100) + 33);
-					result=randomn1_span * randomn2_span;
-
-					spanicon.id="spancont_" +result;
-					spanicon.name="spancont_" +result;
-					spanicon.style="position:relative;float:left;display:inline-block;height:auto;width:30px;margin-left:0px;margin-top: 35px;";
-					spanicon.innerHTML=defaults.caption;
-					iconcontent.append(imgicon);
+					spanicon.append(itagicon);
 					iconcontent.append(spanicon);
+					iconcontent.append(spantext);
 					g("#" + defaults.idbarra).append(iconcontent);
 					g("#" + iconcontent.id).click(defaults.action);
+					g("#" + iconcontent.id).addClass("icon-text");
+					g("#" + iconcontent.id).addClass("mx-4");
+					g("#" + spanicon.id).addClass("icon");
+					g("#" + itagicon.id).addClass("material-icons");
+					g("#" + itagicon.id).text(defaults.icon);
+					if(defaults.caption!=''){
+						g("#" + spantext.id).text(defaults.caption);
+					}
 					g("#" + iconcontent.id).css({
 						'cursor':'pointer'
 					});
