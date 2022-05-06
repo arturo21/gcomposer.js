@@ -33,6 +33,17 @@ let gfile=(function(){
 		appendFile:function(){
 			let cantarchivos;
 			let ajx=genrl.ajaxapi;
+			//README: Subir archivo y agregarlo al vuelo en la tabla de archivos
+			//argumento 0 el id de la tabla parent
+			//del 1 en adelante los archivos
+			cantarchivos=arguments.length;
+			//usar librería DND
+		},
+		//archivos
+		readAppendFilesDir:function(){
+			let cantarchivos;
+			let ajx=genrl.ajaxapi;
+			//README: Leer el directorio de archivos/carpetas y agregarlo a la tabla HTML al vuelo
 			//argumento 0 el id de la tabla parent
 			//del 1 en adelante los archivos
 			cantarchivos=arguments.length;
