@@ -30,14 +30,69 @@ let gfile=(function(){
 			});
 		},
 		//archivos
-		appendFile:function(){
+		appendFile:function(settings){
 			let cantarchivos;
+			let primertr;
+			let nombretd;
+			let tamanotd;
+			let fechatd;
+			let strdata;
+			let zoneid_div=genrl.now();
 			let ajx=genrl.ajaxapi;
 			//README: Subir archivo y agregarlo al vuelo en la tabla de archivos
 			//argumento 0 el id de la tabla parent
 			//del 1 en adelante los archivos
 			cantarchivos=arguments.length;
+			genrl.log(tabpadre.id);
+			if(settings.nombre!=undefined && settings.tamano!=undefined && settings.fecha!=undefined){
+				if(settings.nombre!=null && settings.tamano!=null && settings.fecha!=null){
+					if(settings.nombre!='' && settings.tamano!='' && settings.fecha!=''){
+						genrl.create("tr",function(elem){
+							elem.id= "draggable-tabpadre-tdfile-" + zoneid_div;
+							elem.name= "draggable-tabpadre-tdfile-" + zoneid_div;
+							primertr=elem;
+						});
+						genrl.create("td",function(elem){
+							let zoneid_div=genrl.now();
+							elem.id= "draggable-tdnombre-tdfile-" + zoneid_div;
+							elem.name= "draggable-tdnombre-tdfile-" + zoneid_div;
+							elem.innerHTML=settings.nombre;
+							nombretd=elem;
+						});
+						genrl.create("td",function(elem){
+							let zoneid_div=genrl.now();
+							elem.id= "draggable-tdtamano-tdfile-" + zoneid_div;
+							elem.name= "draggable-tdtamano-tdfile-" + zoneid_div;
+							elem.innerHTML=settings.tamano;
+							tamanotd=elem;
+						});
+						genrl.create("td",function(elem){
+							let zoneid_div=genrl.now();
+							elem.id= "draggable-tdfecha-tdfile-" + zoneid_div;
+							elem.name= "draggable-tdfecha-tdfile-" + zoneid_div;
+							elem.innerHTML=settings.fecha;
+							fechatd=elem;
+						});
+						primertr.append(nombretd);
+						primertr.append(tamanotd);
+						primertr.append(fechatd);
+						
+						g("#" + tabpadre.id + ">tbody").append(primertr);
+					}
+				}
+			}
 			//usar librería DND
+			ajx=genrl.ajaxapi;
+			ajx
+			.post("",strdata)
+			.then(function(data){
+				if(data=="VALID_SESSION"){
+					genrl.lhref(callbacklogin);
+				}
+			})
+			.catch(function(e){	
+				genrl.log("ERROR:" + e);
+			});
 		},
 		//archivos
 		readAppendFilesDir:function(){
@@ -48,6 +103,16 @@ let gfile=(function(){
 			//del 1 en adelante los archivos
 			cantarchivos=arguments.length;
 			//usar librería DND
+			ajx
+			.post(savesession,strdata)
+			.then(function(data){
+				if(data=="VALID_SESSION"){
+					genrl.lhref(callbacklogin);
+				}
+			})
+			.catch(function(e){	
+				genrl.log("ERROR:" + e);
+			});
 		},
 		makeFilesPanel:function(settings){
 			let zoneid_div=genrl.now();
@@ -162,15 +227,24 @@ let gfile=(function(){
 			let zoneid_div=genrl.now();
 			let divdraggable;
 			let divdraggable_aviso;
+			let frmaction;
+
 			if(settings.parent==undefined){
-				genrl.error("Debe establecer el di padre!");
+				genrl.error("Debe establecer el div padre!");
 			}
 			else{
+				if(settings.action!='' || settings.action!=undefined || settings.action!=null){
+					frmaction=settings.action;
+				}
+				else{
+					genrl.error("Debe establecer el action del form!");
+				}
 				//Crear un input Form con estilo
 				genrl.create("form",function(elem){
 					elem.id= "draggable-zone-" + zoneid_div;
 					elem.name= "draggable-zone-" + zoneid_div;
 					elem.enctype= "multipart/form-data";
+					elem.action=frmaction;
 					divdraggable=elem;
 				});
 
